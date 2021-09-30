@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+	<head>
+        <meta charset="utf-8">
+        <title>Book recommender</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    </head>
+
+    <body>
+
+        <!-- Website Title -->
+    	<div class="container1" style="text-align: center">
+            <h2 class='container-heading'><span class="heading_font">Book Recommender</span></h2>
+            <div class='description'>
+    			<p>Find new inspiration.</p>
+    		</div>
+    	</div>
+
+		<!-- Text Area -->
+    	<div class="ml-containerss" style="text-align: center">
+    		<form action="{{ url_for('get') }}" method="GET">
+                <input class="form-input" type="text" name="book_title" placeholder="Enter your favourite book"><br>
+        		<input type="submit" class="my-cta-button" value="Recommend" style="text-align: center">
+        	</form>
+    	</div>
+
+		<!-- Result -->
+		<div class="results">
+			<div class="container">
+			<div class="row">
+					{% for key, values in data['book'].items() %}
+
+
+					<div class="col-md-3 card">
+							<img src="{{data['img'][key]}}" class="card-img-top text-center" alt=""
+							style="width: 200px; height: 250px;">
+							<div class="card-body">
+								<h5 class="card-title">{{data['book'][key]}}</h5>
+								<P class="text-info"><span><b>Author(s): </b></span>{{data['author'][key]}}</p>
+							</div>
+					</div>
+						{% if (loop.index % 4 == 0 or loop.last) %}
+							</div><div class="row">
+						{% endif %}
+					{% endfor %}
+				
+			</div>
+		</div>
+
+		<!-- Footer -->
+       <div class='footer' style="text-align: center">
+           <p class='footer-description'>Made by Pavel Tuč.</p>
+       </div>
+
+	</body>
+</html>
